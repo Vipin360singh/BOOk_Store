@@ -1,0 +1,116 @@
+﻿@model ProductVM
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImageUrl" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4">
+                        @*p-3 = padding 3*@
+                        <div class="row pb-2">
+                            <h2 class="text-primary">Create Product</h2>
+                            <hr />
+                        </div>
+                        <div asp-validation-summary="All"></div> @*all can be modelonly*@
+                        <div class="mb-3 row p-1">
+                            @*margin bottom*@
+                            <label asp-for="Product.Title" class="p-0"></label> @*in label asp-for="Name" you can remove the label value.*@
+                            <input asp-for="Product.Title" class="form-control" />
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Description" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.Description" class="form-control" />
+                            <span asp-validation-for="Product.Description" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.ISBN" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.ISBN" class="form-control" />
+                            <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Author" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.Author" class="form-control" />
+                            <span asp-validation-for="Product.Author" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.ListPrice" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.ListPrice" class="form-control" />
+                            <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Price" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.Price" class="form-control" />
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Price50" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.Price50" class="form-control" />
+                            <span asp-validation-for="Product.Price50" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Price100" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input asp-for="Product.Price100" class="form-control" />
+                            <span asp-validation-for="Product.Price100" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.CategoryId" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            @*<select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select">
+                            <option disabled selected>--Select Category--</option>
+                            </select>*@
+                            <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                                <option disabled selected>--Select Category--</option>
+                            </select>@* to access by ViewData Method*@
+                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.ImageUrl" class="p-0"></label> @*we can set DisplayName in product.cs or leave ot default *@
+                            <input type="file" name="file" class="form-control" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 col-md-3">
+                                @if (Model.Product.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">Back to List</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-2">
+                    <img src="@Model.Product.ImageUrl" width="100%" 
+                    style="border-radius:5px;border:1px solid white" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        /*it should be same as Shared/_ValidationScriptsPartial*/
+    }
+}
